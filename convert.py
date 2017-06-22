@@ -1,5 +1,20 @@
+bl_info = {
+    "name": "Material converter",
+    "author": "Pavel K.",
+    "version": (1, 0),
+    "blender": (2, 78, 0),
+    "location": "Properties > Meterial Tab (cycles context)",
+    "description": "Convert material from active object to Cycles redner engine",
+    "warning": "",
+    "wiki_url": "",
+    "tracker_url": "",
+    "category": ""}
+
+
 import random
 import bpy
+
+
 def get_random_color():
     ''' generate rgb using a list comprehension '''
     r, g, b = [random.random() for i in range(3)]
