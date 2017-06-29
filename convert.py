@@ -1,3 +1,6 @@
+import random
+import bpy
+
 bl_info = {
     "name": "Material converter",
     "author": "Pavel K.",
@@ -8,12 +11,8 @@ bl_info = {
     "warning": "",
     "wiki_url": "",
     "tracker_url": "",
-    "category": ""}
-
-
-import random
-import bpy
-
+    "category": ""
+}
 
 def get_random_color():
     ''' generate rgb using a list comprehension '''
@@ -26,7 +25,7 @@ def create_material_nodes():
     Selects two random colors diffuse_colors from active material
     and creates cycles material
     '''
-    active_material =  bpy.context.selected_objects[0].active_material
+    active_material = bpy.context.selected_objects[0].active_material
     active_material.use_nodes=True
     TreeNodes = active_material.node_tree
     links = TreeNodes.links
@@ -36,7 +35,6 @@ def create_material_nodes():
         try:
             colors.append(n.material.diffuse_color)
         except AttributeError as e:
-            # print(e)
             pass
                 
         TreeNodes.nodes.remove(n)
@@ -55,7 +53,6 @@ def create_material_nodes():
 
     fresnel = TreeNodes.nodes.new('ShaderNodeFresnel')
     fresnel.location = -143, 60
-
 
     RGB1, RGB2 = TreeNodes.nodes.new('ShaderNodeRGB'), TreeNodes.nodes.new('ShaderNodeRGB')
     RGB1.location, RGB2.location = (-247, -51), (-56, -107)
@@ -93,10 +90,9 @@ class ConvertPanel(bpy.types.Panel):
 
     def draw(self, context):
         layout = self.layout
-
         obj = context.object
         row = layout.row()
-        row.operator("ml.convert_active",text='Convert material to Cycles')
+        row.operator("ml.convert_active", text='Convert material to Cycles')
 
 def register():
     bpy.utils.register_class(ConvertOperator)
